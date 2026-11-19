@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>拾味 SAVOUR · 品味生活的每一道美味</title>
+<meta name="description" content="拾味 SAVOUR —— 严选食材，匠心烹饪，发现生活中的每一道美味。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --primary:#e85d2c;--primary-dark:#c9471c;--accent:#f4a261;
+    --bg:#fffaf4;--bg-soft:#fdf2e6;--text:#2c241b;--muted:#7a6f63;
+    --line:#eadfd2;--white:#fff;--shadow:0 18px 50px rgba(80,50,20,.10);
+    --serif:'Noto Serif SC','Songti SC',Georgia,serif;
+    --sans:'Noto Sans SC',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--sans);color:var(--text);background:var(--bg);line-height:1.7;-webkit-font-smoothing:antialiased}
+  img{display:block;width:100%;height:100%;object-fit:cover}
+  a{text-decoration:none;color:inherit}
+  button,input,textarea,select{font-family:var(--sans)}
+  .wrap{width:min(1180px,90%);margin:0 auto}
+
+  header.nav{position:fixed;top:0;left:0;right:0;z-index:100;transition:all .35s ease;padding:22px 0}
+  header.nav.scrolled{background:rgba(255,250,244,.94);backdrop-filter:blur(12px);padding:12px 0;box-shadow:0 6px 24px rgba(80,50,20,.07)}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between}
+  .logo{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-weight:700;font-size:24px;letter-spacing:2px}
+  .logo .mark{width:38px;height:38px;border-radius:50%;background:var(--primary);color:#fff;display:grid;place-items:center;font-size:20px;box-shadow:0 6px 16px rgba(232,93,44,.35)}
+  .logo small{display:block;font-family:var(--sans);font-size:9px;letter-spacing:4px;color:var(--muted);font-weight:500;line-height:1}
+  .nav-links{display:flex;gap:28px;align-items:center}
+  .nav-links>a{font-size:14px;font-weight:500;position:relative;padding:6px 0;transition:color .25s;cursor:pointer}
+  .nav-links>a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:2px;background:var(--primary);transition:width .25s}
+  .nav-links>a:hover,.nav-links>a.active{color:var(--primary)}
+  .nav-links>a:hover::after,.nav-links>a.active::after{width:100%}
+  .btn{border:none;cursor:pointer;font-weight:500;font-size:14px;padding:12px 24px;border-radius:40px;transition:all .3s;display:inline-block}
+  .btn-primary{background:var(--primary);color:#fff;box-shadow:0 8px 22px rgba(232,93,44,.3)}
+  .btn-primary:hover{background:var(--primary-dark);transform:translateY(-2px);box-shadow:0 12px 28px rgba(232,93,44,.4)}
+  .btn-ghost{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.7)}
+  .btn-ghost:hover{background:#fff;color:var(--text)}
+  .btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+  .nav-cta{padding:10px 20px}
+  .user-chip{display:none;align-items:center;gap:8px;background:var(--bg-soft);border:1px solid var(--line);padding:6px 8px 6px 14px;border-radius:30px;cursor:pointer;font-size:13px}
+  .user-chip.show{display:flex}
+  .user-chip .ava{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--primary));color:#fff;display:grid;place-items:center;font-family:var(--serif)}
+  .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:8px}
+  .hamburger span{width:24px;height:2px;background:var(--text);transition:.3s;border-radius:2px}
+
+  .hero{position:relative;min-height:100vh;display:flex;align-items:center;color:#fff;overflow:hidden}
+  .hero::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(30,18,10,.78),rgba(30,18,10,.45) 50%,rgba(30,18,10,.25));z-index:1}
+  .hero-bg{position:absolute;inset:0}
+  .hero-bg img{animation:kenburns 18s ease-in-out infinite alternate}
+  @keyframes kenburns{from{transform:scale(1)}to{transform:scale(1.1)}}
+  .hero-content{position:relative;z-index:2;max-width:620px;padding-top:60px}
+  .hero .eyebrow{display:inline-flex;align-items:center;gap:10px;font-size:13px;letter-spacing:3px;color:var(--accent);margin-bottom:20px}
+  .hero .eyebrow::before{content:"";width:36px;height:1px;background:var(--accent)}
+  .hero h1{font-family:var(--serif);font-size:clamp(42px,6vw,72px);line-height:1.2;font-weight:700;margin-bottom:22px;letter-spacing:1px}
+  .hero h1 em{font-style:normal;color:var(--accent)}
+  .hero p.lead{font-size:17px;color:rgba(255,255,255,.85);max-width:500px;margin-bottom:34px;font-weight:300}
+  .hero-btns{display:flex;gap:14px;flex-wrap:wrap}
+  .hero-stats{display:flex;gap:38px;margin-top:56px;padding-top:28px;border-top:1px solid rgba(255,255,255,.18);max-width:480px}
+  .hero-stats .stat b{font-family:var(--serif);font-size:30px;display:block;color:#fff}
+  .hero-stats .stat span{font-size:12px;letter-spacing:2px;color:rgba(255,255,255,.6)}
+  .scroll-hint{position:absolute;bottom:32px;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:8px;font-size:11px;letter-spacing:3px;color:rgba(255,255,255,.7)}
+  .scroll-hint .mouse{width:22px;height:36px;border:1.5px solid rgba(255,255,255,.6);border-radius:14px;position:relative}
+  .scroll-hint .mouse::after{content:"";position:absolute;top:7px;left:50%;transform:translateX(-50%);width:3px;height:7px;background:#fff;border-radius:2px;animation:scrolldot 1.6s infinite}
+  @keyframes scrolldot{0%{opacity:1;transform:translate(-50%,0)}100%{opacity:0;transform:translate(-50%,12px)}}
+
+  section{padding:100px 0}
+  .sec-head{text-align:center;max-width:640px;margin:0 auto 56px}
+  .sec-head .kicker{color:var(--primary);font-size:13px;letter-spacing:4px;text-transform:uppercase;font-weight:600}
+  .sec-head h2{font-family:var(--serif);font-size:clamp(30px,4vw,44px);margin:12px 0 14px;letter-spacing:1px}
+  .sec-head p{color:var(--muted);font-size:15px}
+  .divider{width:50px;height:3px;background:var(--primary);margin:18px auto 0;border-radius:2px}
+
+  .categories{background:var(--bg-soft)}
+  .cat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+  .cat-card{position:relative;border-radius:18px;overflow:hidden;aspect-ratio:3/4;box-shadow:var(--shadow)}
+  .cat-card img{transition:transform .6s ease}
+  .cat-card::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(30,15,8,.8),transparent 60%)}
+  .cat-card:hover img{transform:scale(1.08)}
+  .cat-card .info{position:absolute;bottom:0;left:0;right:0;padding:22px;color:#fff;z-index:2}
+  .cat-card .info h3{font-family:var(--serif);font-size:22px;margin-bottom:4px}
+  .cat-card .info span{font-size:12px;color:rgba(255,255,255,.75)}
+
+  .menu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px}
+  .dish{background:#fff;border-radius:18px;overflow:hidden;box-shadow:var(--shadow);transition:transform .35s,box-shadow .35s}
+  .dish:hover{transform:translateY(-8px);box-shadow:0 26px 60px rgba(80,50,20,.16)}
+  .dish-img{height:230px;position:relative;overflow:hidden;background:var(--bg-soft)}
+  .dish-img img{transition:transform .6s}
+  .dish:hover .dish-img img{transform:scale(1.07)}
+  .dish-img .tag{position:absolute;top:14px;left:14px;background:var(--primary);color:#fff;font-size:11px;padding:5px 12px;border-radius:20px;letter-spacing:1px}
+  .dish-img .tag.green{background:#5a8f5a}
+  .dish-body{padding:20px 22px 24px}
+  .dish-body .row{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;gap:8px}
+  .dish-body h3{font-family:var(--serif);font-size:20px}
+  .dish-body .price{font-family:var(--serif);color:var(--primary);font-size:19px;font-weight:700;white-space:nowrap}
+  .dish-body .price small{font-size:12px}
+  .dish-body p{color:var(--muted);font-size:13px;line-height:1.7;margin-bottom:16px}
+  .dish-foot{display:flex;align-items:center;justify-content:space-between}
+  .dish-foot .rating{color:var(--accent);font-size:13px}
+  .dish-foot .rating span{color:var(--muted);margin-left:5px}
+  .add-btn{width:38px;height:38px;border-radius:50%;border:1.5px solid var(--primary);background:transparent;color:var(--primary);font-size:22px;line-height:1;cursor:pointer;transition:.3s;display:grid;place-items:center}
+  .add-btn:hover,.add-btn.added{background:var(--primary);color:#fff;transform:rotate(90deg)}
+  .empty{grid-column:1/-1;text-align:center;color:var(--muted);padding:60px 0}
+
+  .feature{background:#2c241b;color:#fff}
+  .feature-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center}
+  .feature-img{position:relative;border-radius:20px;overflow:hidden;height:440px}
+  .feature-img img{transition:transform .8s}
+  .feature-img:hover img{transform:scale(1.05)}
+  .feature-img .badge{position:absolute;bottom:24px;left:24px;background:var(--primary);padding:14px 22px;border-radius:12px;box-shadow:var(--shadow)}
+  .feature-img .badge b{font-family:var(--serif);font-size:26px;display:block}
+  .feature-img .badge span{font-size:11px;letter-spacing:2px;color:rgba(255,255,255,.8)}
+  .feature .kicker{color:var(--accent);font-size:13px;letter-spacing:4px;text-transform:uppercase;font-weight:600}
+  .feature h2{font-family:var(--serif);font-size:clamp(30px,4vw,44px);margin:12px 0 20px;line-height:1.3}
+  .feature p.desc{color:rgba(255,255,255,.7);font-size:15px;margin-bottom:28px}
+  .steps{list-style:none;margin-bottom:34px}
+  .steps li{display:flex;gap:16px;padding:13px 0;border-bottom:1px solid rgba(255,255,255,.1)}
+  .steps li .num{font-family:var(--serif);color:var(--accent);font-size:18px;min-width:30px}
+  .steps li div b{display:block;font-size:15px;margin-bottom:2px}
+  .steps li div span{font-size:13px;color:rgba(255,255,255,.55)}
+
+  .reserve{background:var(--bg-soft)}
+  .reserve-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:60px;align-items:center}
+  .reserve .kicker{color:var(--primary);font-size:13px;letter-spacing:4px;font-weight:600}
+  .reserve h2{font-family:var(--serif);font-size:clamp(30px,4vw,42px);margin:12px 0 16px}
+  .reserve p{color:var(--muted);margin-bottom:24px}
+  .reserve-list{list-style:none}
+  .reserve-list li{padding:10px 0;color:var(--muted);font-size:14px}
+  .reserve-list li b{color:var(--text)}
+  .form-card{background:#fff;border-radius:20px;padding:34px;box-shadow:var(--shadow)}
+  .form-card h3{font-family:var(--serif);font-size:22px;margin-bottom:20px}
+  .field{margin-bottom:16px}
+  .field label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px;font-weight:500}
+  .field input,.field textarea,.field select{width:100%;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:14px;color:var(--text);background:#fff;outline:none;transition:border-color .25s}
+  .field input:focus,.field textarea:focus,.field select:focus{border-color:var(--primary)}
+  .field textarea{resize:vertical;min-height:70px}
+  .field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .form-card .btn{width:100%;margin-top:6px}
+  .form-note{font-size:12px;color:var(--muted);text-align:center;margin-top:12px;min-height:16px}
+
+  .rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+  .rev{background:#fff;border-radius:16px;padding:30px;box-shadow:var(--shadow)}
+  .rev .stars{color:var(--accent);font-size:15px;margin-bottom:12px;letter-spacing:2px}
+  .rev p{color:var(--muted);font-size:14px;line-height:1.8;margin-bottom:22px}
+  .rev .who{display:flex;align-items:center;gap:12px}
+  .rev .avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--primary));color:#fff;display:grid;place-items:center;font-family:var(--serif);font-size:18px;flex-shrink:0}
+  .rev .who b{display:block;font-size:14px}
+  .rev .who span{font-size:12px;color:var(--muted)}
+  .write-rev{margin-top:36px;background:#fff;border-radius:16px;padding:26px 30px;box-shadow:var(--shadow);display:flex;gap:16px;align-items:flex-start;flex-wrap:wrap}
+  .stars-input{font-size:22px;color:var(--accent);cursor:pointer;letter-spacing:3px;user-select:none}
+  .write-rev textarea{flex:1;min-width:220px;border:1px solid var(--line);border-radius:10px;padding:10px 12px;resize:vertical;min-height:52px;outline:none}
+  .write-rev textarea:focus{border-color:var(--primary)}
+
+  .newsletter{position:relative;padding:90px 0;background:linear-gradient(120deg,var(--primary),var(--primary-dark));color:#fff;text-align:center;overflow:hidden}
+  .newsletter::before,.newsletter::after{content:"";position:absolute;border-radius:50%;border:1px solid rgba(255,255,255,.12)}
+  .newsletter::before{width:340px;height:340px;top:-140px;left:-80px}
+  .newsletter::after{width:260px;height:260px;bottom:-130px;right:-40px}
+  .newsletter h2{font-family:var(--serif);font-size:clamp(28px,4vw,40px);margin-bottom:12px;position:relative}
+  .newsletter p{color:rgba(255,255,255,.85);margin-bottom:28px;position:relative}
+  .sub-form{display:flex;gap:10px;max-width:500px;margin:0 auto;position:relative;flex-wrap:wrap;justify-content:center}
+  .sub-form input{flex:1;min-width:240px;padding:14px 20px;border:none;border-radius:40px;font-size:14px;outline:none}
+  .sub-form button{background:#2c241b;color:#fff;padding:14px 28px}
+
+  footer{background:#1f1913;color:rgba(255,255,255,.7);padding:64px 0 24px}
+  .foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1.3fr;gap:40px;margin-bottom:44px}
+  .foot-brand .logo{color:#fff;margin-bottom:14px}
+  .foot-brand p{font-size:13px;line-height:1.9}
+  .foot-col h4{color:#fff;font-family:var(--serif);font-size:16px;margin-bottom:16px}
+  .foot-col a,.foot-col p{display:block;font-size:13px;margin-bottom:10px;transition:color .25s;cursor:pointer}
+  .foot-col a:hover{color:var(--accent)}
+  .foot-hours span{display:flex;justify-content:space-between;gap:12px;font-size:13px;margin-bottom:9px}
+  .foot-bottom{border-top:1px solid rgba(255,255,255,.1);padding-top:22px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:12px}
+
+  .overlay{position:fixed;inset:0;background:rgba(30,20,12,.55);backdrop-filter:blur(4px);z-index:200;display:none;align-items:center;justify-content:center;padding:20px}
+  .overlay.open{display:flex}
+  .modal{background:var(--bg);border-radius:22px;width:min(440px,100%);max-height:88vh;overflow:auto;box-shadow:0 30px 80px rgba(0,0,0,.3);position:relative}
+  .modal.wide{width:min(560px,100%)}
+  .modal-close{position:absolute;top:16px;right:18px;background:none;border:none;font-size:24px;color:var(--muted);cursor:pointer;line-height:1}
+  .modal-hd{padding:30px 32px 0}
+  .modal-hd h3{font-family:var(--serif);font-size:24px}
+  .modal-hd p{color:var(--muted);font-size:13px;margin-top:4px}
+  .modal-bd{padding:24px 32px 32px}
+  .code-row{display:flex;gap:8px}
+  .code-row input{flex:1}
+  .code-row button{white-space:nowrap;padding:0 16px;border:1px solid var(--primary);color:var(--primary);background:transparent;border-radius:10px;cursor:pointer;font-size:13px}
+  .code-row button:disabled{opacity:.5;cursor:not-allowed}
+  .msg{font-size:13px;margin-top:12px;min-height:18px}
+  .msg.err{color:#c0392b}
+  .msg.ok{color:#2e8b57}
+  .profile-block{margin-bottom:22px}
+  .profile-block h4{font-family:var(--serif);font-size:15px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center}
+  .list-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);font-size:13px}
+  .list-row img{width:44px;height:44px;border-radius:8px;flex-shrink:0;background:var(--bg-soft)}
+  .list-row .grow{flex:1;min-width:0}
+  .list-row .grow b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .list-row .grow span{color:var(--muted);font-size:12px}
+  .list-row .del{background:none;border:none;color:var(--muted);cursor:pointer;font-size:18px}
+  .list-row .del:hover{color:#c0392b}
+
+  .reveal{opacity:0;transform:translateY(30px);transition:opacity .8s ease,transform .8s ease}
+  .reveal.visible{opacity:1;transform:none}
+  .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--text);color:#fff;padding:12px 24px;border-radius:40px;font-size:14px;z-index:300;opacity:0;transition:.4s;box-shadow:var(--shadow);max-width:90%;text-align:center}
+  .toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+  .mini-empty{color:var(--muted);font-size:13px;padding:16px 0;text-align:center}
+
+  @media(max-width:980px){
+    .nav-links{position:fixed;top:0;right:-100%;width:260px;height:100vh;background:var(--bg);flex-direction:column;align-items:flex-start;padding:90px 32px;gap:22px;transition:right .35s;box-shadow:-10px 0 40px rgba(0,0,0,.1);z-index:99}
+    .nav-links.open{right:0}
+    .nav-links>a{font-size:16px}
+    .hamburger{display:flex}
+    .cat-grid{grid-template-columns:repeat(2,1fr)}
+    .menu-grid{grid-template-columns:repeat(2,1fr)}
+    .feature-grid,.reserve-grid{grid-template-columns:1fr;gap:40px}
+    .feature-img{height:340px}
+    .rev-grid{grid-template-columns:1fr}
+    .foot-grid{grid-template-columns:repeat(2,1fr)}
+  }
+  @media(max-width:640px){
+    section{padding:70px 0}
+    .hero-stats{gap:24px}
+    .hero-stats .stat b{font-size:24px}
+    .cat-grid,.menu-grid{grid-template-columns:1fr}
+    .foot-grid{grid-template-columns:1fr}
+    .field-row{grid-template-columns:1fr}
+    .nav-cta{display:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a href="#home" class="logo"><span class="mark">味</span><span>拾味<small>SAVOUR</small></span></a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#home" class="active">首页</a>
+      <a href="#categories">菜品分类</a>
+      <a href="#menu">招牌菜单</a>
+      <a href="#feature">今日特色</a>
+      <a href="#reserve">在线订座</a>
+      <a href="#reviews">顾客评价</a>
+      <a href="#" id="navLogin" class="btn btn-primary nav-cta">登录 / 注册</a>
+      <div class="user-chip" id="userChip"><span class="ava" id="userAva">味</span><span id="userName">我的</span></div>
+    </nav>
+    <button class="hamburger" id="hamburger" aria-label="菜单"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<section class="hero" id="home" style="padding:0">
+  <div class="hero-bg"><img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1920&q=85" alt="丰盛的美食餐桌"></div>
+  <div class="wrap hero-content">
+    <span class="eyebrow">舌尖上的匠心之旅</span>
+    <h1>食不厌精<br><em>味不厌细</em></h1>
+    <p class="lead">严选当季新鲜食材，以匠心对待每一道工序。在这里，每一道菜都是一场关于味道与生活的温柔相遇。</p>
+    <div class="hero-btns"><a href="#menu" class="btn btn-primary">探索招牌菜单</a><a href="#reserve" class="btn btn-ghost">立即在线订座</a></div>
+    <div class="hero-stats"><div class="stat"><b>12+</b><span>年匠心的沉淀</span></div><div class="stat"><b>80+</b><span>道经典美味</span></div><div class="stat"><b>4.9</b><span>顾客好评评分</span></div></div>
+  </div>
+  <div class="scroll-hint"><div class="mouse"></div><span>SCROLL</span></div>
+</section>
+
+<section class="categories" id="categories"><div class="wrap">
+  <div class="sec-head reveal"><span class="kicker">What We Serve</span><h2>总有一种味道，属于你</h2><p>从经典中餐到异国风味，从精致甜点到清爽饮品，满足你对美味的所有想象</p><div class="divider"></div></div>
+  <div class="cat-grid">
+    <div class="cat-card reveal"><img src="https://images.unsplash.com/photo-1563245372-f21724e3856d?auto=format&fit=crop&w=700&q=80" alt="精致中餐"><div class="info"><h3>经典中餐</h3><span>传承的地道风味</span></div></div>
+    <div class="cat-card reveal"><img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=700&q=80" alt="西式料理"><div class="info"><h3>西式料理</h3><span>优雅的异国风情</span></div></div>
+    <div class="cat-card reveal"><img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=700&q=80" alt="精致甜品"><div class="info"><h3>精致甜品</h3><span>甜蜜的幸福滋味</span></div></div>
+    <div class="cat-card reveal"><img src="https://images.unsplash.com/photo-1544145945-f90425340c7e?auto=format&fit=crop&w=700&q=80" alt="创意饮品"><div class="info"><h3>创意饮品</h3><span>清爽的味觉灵感</span></div></div>
+  </div>
+</div></section>
+
+<section class="menu" id="menu"><div class="wrap">
+  <div class="sec-head reveal"><span class="kicker">Signature Dishes</span><h2>主厨招牌推荐</h2><p>每一道都经过反复打磨，是我们最想与你分享的味道 — 数据实时来自云端</p><div class="divider"></div></div>
+  <div class="menu-grid" id="menuGrid"><div class="empty" id="menuLoading">正在加载美味…</div></div>
+</div></section>
+
+<section class="feature" id="feature"><div class="wrap feature-grid">
+  <div class="feature-img reveal"><img src="https://images.unsplash.com/photo-1466637574441-749b8f19452f?auto=format&fit=crop&w=900&q=85" alt="主厨精心烹饪"><div class="badge"><b>12 年</b><span>只为做好一道菜</span></div></div>
+  <div class="reveal"><span class="kicker">Our Story</span><h2>把每一道菜，<br>都当成作品来完成</h2><p class="desc">拾味的故事，始于对美味的一份执着。我们相信，好的食物不仅能填饱肚子，更能治愈人心。从食材的甄选到摆盘的细节，我们从不妥协。</p>
+    <ul class="steps"><li><span class="num">01</span><div><b>严选食材</b><span>与优质农场直连，只选用当季最新鲜的原料</span></div></li><li><span class="num">02</span><div><b>匠心烹饪</b><span>传承经典技法，融入现代创意的独特理解</span></div></li><li><span class="num">03</span><div><b>用心呈现</b><span>从味觉到视觉，给你一场完整的感官盛宴</span></div></li></ul>
+    <a href="#reserve" class="btn btn-primary">预约一席美味</a>
+  </div>
+</div></section>
+
+<section class="reserve" id="reserve"><div class="wrap reserve-grid">
+  <div class="reveal"><span class="kicker">Book A Table</span><h2>留一席，只为等你</h2><p>在线填写订座信息，我们会为你预留最好的位置。订座记录安全保存在云端，登录后即可在「我的」中查看。</p>
+    <ul class="reserve-list"><li>🕐 <b>营业时间</b> — 周一至周五 11:00–22:00，周末 10:30–23:00</li><li>📍 <b>门店地址</b> — 杭州市西湖区美食街 88 号</li><li>🎁 <b>订座礼遇</b> — 在线订座即赠开胃小食一份</li></ul>
+  </div>
+  <form class="form-card reveal" id="reserveForm">
+    <h3>在线订座</h3>
+    <div class="field-row"><div class="field"><label>联系人</label><input id="rName" placeholder="怎么称呼您" required></div><div class="field"><label>手机号</label><input id="rPhone" placeholder="11 位手机号" required maxlength="11"></div></div>
+    <div class="field-row"><div class="field"><label>日期</label><input type="date" id="rDate" required></div><div class="field"><label>时间</label><select id="rTime"><option>11:30</option><option>12:00</option><option>13:00</option><option>17:30</option><option>18:00</option><option>19:00</option><option>20:00</option></select></div></div>
+    <div class="field"><label>用餐人数</label><select id="rGuests"><option value="2">2 位</option><option value="3">3 位</option><option value="4">4 位</option><option value="5">5 位</option><option value="6">6 位及以上</option></select></div>
+    <div class="field"><label>备注（选填）</label><textarea id="rNote" placeholder="如：靠窗、庆祝生日等"></textarea></div>
+    <button type="submit" class="btn btn-primary" id="rSubmit">确认订座</button>
+    <div class="form-note" id="rMsg"></div>
+  </form>
+</div></section>
+
+<section class="reviews" id="reviews"><div class="wrap">
+  <div class="sec-head reveal"><span class="kicker">Happy Customers</span><h2>听听他们怎么说</h2><p>每一个好评，都是我们继续用心的理由 — 来自云端的真实评价</p><div class="divider"></div></div>
+  <div class="rev-grid" id="revGrid"></div>
+  <div class="write-rev reveal"><div class="stars-input" id="starInput">★★★★★</div><textarea id="revText" placeholder="分享你的用餐体验…（登录后发表）"></textarea><button class="btn btn-primary" id="revSubmit">发表评价</button></div>
+</div></section>
+
+<section class="newsletter" style="padding:90px 0"><div class="wrap">
+  <h2 class="reveal">订阅我们的美味灵感</h2><p class="reveal">留下邮箱，第一时间获取新品发布、时令菜单与专属优惠</p>
+  <form class="sub-form reveal" id="subForm"><input type="email" id="emailInput" placeholder="请输入你的邮箱地址" required><button type="submit" class="btn" id="subBtn">立即订阅</button></form>
+  <div class="msg reveal" id="subMsg" style="color:#fff;text-align:center;margin-top:14px"></div>
+</div></section>
+
+<footer id="contact"><div class="wrap">
+  <div class="foot-grid">
+    <div class="foot-brand"><a href="#home" class="logo"><span class="mark">味</span><span>拾味<small>SAVOUR</small></span></a><p>以匠心对待每一道菜，用美味温暖每一天。<br>拾味，让生活更有滋味。</p></div>
+    <div class="foot-col"><h4>快速导航</h4><a href="#home">首页</a><a href="#categories">菜品分类</a><a href="#menu">招牌菜单</a><a href="#reserve">在线订座</a></div>
+    <div class="foot-col"><h4>服务支持</h4><a href="#">会员权益</a><a href="#">外卖配送</a><a href="#">常见问题</a><a id="footProfile">我的收藏与订座</a></div>
+    <div class="foot-col"><h4>营业信息</h4><div class="foot-hours"><span>周一至周五 <b>11:00 - 22:00</b></span><span>周六至周日 <b>10:30 - 23:00</b></span></div><p style="margin-top:12px">📍 杭州市西湖区美食街 88 号</p><p>📞 0571-8888 6666</p></div>
+  </div>
+  <div class="foot-bottom"><span>© 2026 拾味 SAVOUR. 保留所有权利。</span><span>用 ❤ 与匠心制作</span></div>
+</div></footer>
+
+<div class="overlay" id="loginOverlay"><div class="modal">
+  <button class="modal-close" data-close="loginOverlay">×</button>
+  <div class="modal-hd"><h3>欢迎来到拾味</h3><p>手机号验证码登录，无密码，安全便捷</p></div>
+  <div class="modal-bd">
+    <div class="field"><label>手机号</label><input id="loginPhone" placeholder="11 位手机号" maxlength="11"></div>
+    <div class="field"><label>验证码</label><div class="code-row"><input id="loginCode" placeholder="6 位验证码" maxlength="6"><button type="button" id="sendCodeBtn">获取验证码</button></div></div>
+    <div class="msg" id="loginMsg"></div>
+    <button class="btn btn-primary" id="loginSubmit" style="width:100%">登录</button>
+  </div>
+</div></div>
+
+<div class="overlay" id="profileOverlay"><div class="modal wide">
+  <button class="modal-close" data-close="profileOverlay">×</button>
+  <div class="modal-hd"><h3>我的拾味</h3><p id="profileSub">收藏的菜品与在线订座记录</p></div>
+  <div class="modal-bd">
+    <div class="profile-block"><h4><span>❤️ 我的收藏</span><button class="btn btn-primary" id="logoutBtn" style="padding:6px 16px;font-size:12px">退出登录</button></h4><div id="favList"></div></div>
+    <div class="profile-block"><h4><span>📅 我的订座</span></h4><div id="resList"></div></div>
+  </div>
+</div></div>
+
+<div class="toast" id="toast"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@tencent-ai/workbuddy-cloud-sdk@dev/lib/index.global.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
